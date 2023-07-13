@@ -675,7 +675,7 @@ if(NOT UA_FORCE_CPP AND (CMAKE_COMPILER_IS_GNUCC OR "x${CMAKE_C_COMPILER_ID}" ST
         check_add_cc_flag("-Werror")    # All warnings are errors
     endif()
 
-    check_add_cc_flag("-Wno-static-in-inline") # Clang doesn't like the use of static inline methods inside static inline methods
+	#check_add_cc_flag("-Wno-static-in-inline") # Clang doesn't like the use of static inline methods inside static inline methods
     check_add_cc_flag("-Wno-overlength-strings") # May happen in the nodeset compiler when complex values are directly encoded
     check_add_cc_flag("-Wno-unused-parameter") # some methods may require unused arguments to cast to a method pointer
 
@@ -689,18 +689,18 @@ if(NOT UA_FORCE_CPP AND (CMAKE_COMPILER_IS_GNUCC OR "x${CMAKE_C_COMPILER_ID}" ST
 
     # Check prototype definitions
     check_add_cc_flag("-Wmissing-prototypes")
-    check_add_cc_flag("-Wstrict-prototypes")
+	#check_add_cc_flag("-Wstrict-prototypes")
     check_add_cc_flag("-Wredundant-decls")
 
     check_add_cc_flag("-Wuninitialized")
     check_add_cc_flag("-Winit-self")
-    check_add_cc_flag("-Wcast-qual")
+	check_add_cc_flag("-Wcast-qual")
     check_add_cc_flag("-Wstrict-overflow")
     check_add_cc_flag("-Wnested-externs")
     check_add_cc_flag("-Wmultichar")
     check_add_cc_flag("-Wundef")
     check_add_cc_flag("-fno-strict-aliasing") # fewer compiler assumptions about pointer types
-    check_add_cc_flag("-fexceptions") # recommended for multi-threaded C code, also in combination with C++ code
+	#check_add_cc_flag("-fexceptions") # recommended for multi-threaded C code, also in combination with C++ code
 
     # Generate position-independent code for shared libraries (adds a performance penalty)
     if(BUILD_SHARED_LIBS)
@@ -999,7 +999,7 @@ set(default_plugin_sources ${PROJECT_SOURCE_DIR}/plugins/ua_log_stdout.c
 )
 
 # Syslog-logging on Linux and Unices
-if(UNIX)
+if(UNIX OR ${UA_ARCHITECTURE} STREQUAL "freertosLWIP")
     list(APPEND default_plugin_headers
         ${PROJECT_SOURCE_DIR}/plugins/include/open62541/plugin/log_syslog.h)
     list(APPEND default_plugin_sources ${PROJECT_SOURCE_DIR}/plugins/ua_log_syslog.c)
