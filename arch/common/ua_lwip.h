@@ -58,21 +58,14 @@
 #define UA_getsockopt lwip_getsockopt
 #define UA_setsockopt lwip_setsockopt
 #define UA_freeaddrinfo lwip_freeaddrinfo
-#ifndef UA_gethostname
+#ifndef UA_GETHOSTNAME_PROVIDED
 #define UA_gethostname gethostname_lwip
-#else
-extern int UA_gethostname(char* name, size_t len);
 #endif
-#ifndef UA_getsockname
+#ifndef UA_GETSOCKNAME_PROVIDED
 #define UA_getsockname lwip_getsockname
-#else
-extern int UA_getsockname((int s, struct sockaddr *name, socklen_t *namelen);
 #endif
-#ifndef UA_getaddrinfo
+#ifndef UA_GETADDRINFO_PROVIDED
 #define UA_getaddrinfo lwip_getaddrinfo
-#else
-extern int UA_getaddrinfo(const char *nodename, const char *servname,
-                 const struct addrinfo *hints, struct addrinfo **res);
 #endif
 
 #if UA_IPV6
